@@ -34,15 +34,17 @@ export function getLadderStep(d: DimensionScore, overall: number): LadderStep {
   const hasCriticalGap = DIMENSIONS.some((key) => d[key] < 1.8);
 
   if (overall < 1.9 || lowDims >= 3 || hasCriticalGap) return 1;
-  if (overall < 2.8 || d.strategy < 2.2 || d.process < 2.2) return 2;
+
+  // Sin base de visión, identidad o adopción, el sistema no debería saltar a niveles altos.
+  if (overall < 2.8 || d.visionary < 2.3 || d.identity < 2.3 || d.adoption < 2.2) return 2;
 
   const qualifiesFor4 =
     overall >= 3.9 &&
-    d.strategy >= 3.8 &&
-    d.process >= 3.6 &&
-    d.research >= 3.2 &&
-    d.operations >= 3.2 &&
-    DIMENSIONS.every((key) => d[key] >= 3);
+    d.visionary >= 3.7 &&
+    d.identity >= 3.6 &&
+    d.adoption >= 3.5 &&
+    d.innovation >= 3.5 &&
+    DIMENSIONS.every((key) => d[key] >= 3.1);
 
   if (qualifiesFor4) return 4;
   return 3;

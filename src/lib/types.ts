@@ -9,11 +9,12 @@ export type AgencyName =
   | 'BPR';
 
 export type DimensionKey =
-  | 'strategy'
-  | 'process'
-  | 'research'
-  | 'craft'
-  | 'operations';
+  | 'visionary'
+  | 'inspirational'
+  | 'relational'
+  | 'identity'
+  | 'adoption'
+  | 'innovation';
 
 export type LadderStep = 1 | 2 | 3 | 4;
 
@@ -34,6 +35,8 @@ export type ScaleOption = {
 export type Question = {
   id: string;
   dimension: DimensionKey;
+  principleNumber: number;
+  principleName: string;
   title: string;
   description: string;
   weight?: number;

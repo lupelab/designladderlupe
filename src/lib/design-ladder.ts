@@ -1,5 +1,5 @@
 import { DimensionKey, DimensionScore, LadderStep } from '@/lib/types';
-import { DIMENSION_LABELS } from '@/lib/questionnaire';
+import { DIMENSIONS, DIMENSION_LABELS } from '@/lib/questionnaire';
 
 export const STEP_COPY: Record<LadderStep, {
   title: string;
@@ -10,52 +10,52 @@ export const STEP_COPY: Record<LadderStep, {
   nextMove: string;
 }> = {
   1: {
-    title: 'Peldaño 1 · Diseño inexistente o reactivo',
-    shortName: 'Diseño reactivo',
-    summary: 'El diseño todavía aparece tarde, se activa por urgencia y no funciona como una capacidad integrada al negocio.',
-    implication: 'El foco inmediato es construir base: briefs más claros, mejores handoffs, mayor visibilidad del trabajo y una entrada más temprana del diseño en las conversaciones importantes.',
+    title: 'Peldaño 1 · Innovación reactiva',
+    shortName: 'Innovación reactiva',
+    summary: 'La innovación aparece de forma aislada, tardía o dependiente de algunas personas, sin una base cultural ni operativa clara.',
+    implication: 'El foco inmediato es construir condiciones mínimas: visión común, liderazgo visible, conversaciones honestas y herramientas simples para empezar a trabajar desde usuarios.',
     signals: [
-      'El trabajo depende de personas puntuales más que de un sistema.',
-      'Diseño suele entrar al final, cuando la solución ya está decidida.',
-      'Hay retrabajo, baja trazabilidad y aprendizaje poco documentado.',
+      'Las iniciativas surgen como respuesta a urgencias más que como sistema.',
+      'El diseño y la innovación todavía no están instalados en rituales, decisiones o responsabilidades.',
+      'Hay poco espacio para prototipar, aprender o cuestionar supuestos antes de ejecutar.',
     ],
-    nextMove: 'Ordenar la base operativa y asegurar que diseño participe antes de ejecutar.',
+    nextMove: 'Crear una base cultural y operativa mínima para que la innovación deje de depender de voluntades individuales.',
   },
   2: {
-    title: 'Peldaño 2 · Diseño como styling',
-    shortName: 'Diseño como styling',
-    summary: 'El diseño aporta valor visual y creativo, pero todavía influye poco en la definición del problema, el proceso o la estrategia.',
-    implication: 'El siguiente salto es pasar de una lógica estética a una lógica de proceso: discovery, insights, colaboración más temprana y mejores criterios de priorización.',
+    title: 'Peldaño 2 · Innovación táctica',
+    shortName: 'Innovación táctica',
+    summary: 'Existen esfuerzos visibles de innovación y customer centricity, pero todavía son inconsistentes y dependen de proyectos, líderes o equipos específicos.',
+    implication: 'El siguiente salto es convertir buenas intenciones en prácticas repetibles: sponsorship, rituales, escucha activa, voz del usuario y autonomía con límites claros.',
     signals: [
-      'La calidad visual puede ser buena, pero no siempre está conectada con decisiones de negocio.',
-      'La empatía con clientes y prospectos ocurre de manera inconsistente.',
-      'El diseño aún no guía el armado de soluciones o productos nuevos de forma sistemática.',
+      'Hay proyectos o casos interesantes, pero todavía no forman un sistema común.',
+      'La cultura design-led aparece en algunos equipos y se pierde en otros.',
+      'La orientación a usuarios existe, aunque no siempre influye en decisiones clave.',
     ],
-    nextMove: 'Integrar discovery, research e indicadores para mover diseño hacia una función más estructural.',
+    nextMove: 'Sistematizar los principios design-led y convertirlos en comportamientos observables en toda la agencia.',
   },
   3: {
-    title: 'Peldaño 3 · Diseño como proceso',
-    shortName: 'Diseño como proceso',
-    summary: 'El diseño ya participa de forma consistente en el flujo de trabajo y ayuda a mejorar calidad, eficiencia y claridad de las soluciones.',
-    implication: 'Para avanzar, hay que hacer que el sistema sea más estratégico: más incidencia en portfolio, más uso de insights, más gobierno y medición de impacto.',
+    title: 'Peldaño 3 · Innovación como proceso',
+    shortName: 'Innovación como proceso',
+    summary: 'La agencia ya cuenta con prácticas repetibles para innovar, aprender y trabajar desde usuarios, aunque todavía puede ganar profundidad estratégica.',
+    implication: 'Para avanzar, hay que conectar la cultura de innovación con estrategia, modelo de negocio, desarrollo de talento, métricas y portafolio de nuevas soluciones.',
     signals: [
-      'Hay una forma de trabajo más repetible y menos improvisada.',
-      'La colaboración entre áreas empieza a sostener mejores resultados.',
-      'Todavía hay espacio para que diseño incida más en nuevas ofertas y decisiones de negocio.',
+      'Hay rituales, lenguaje y herramientas compartidas.',
+      'Los equipos colaboran mejor y pueden aprender de pilotos o experimentos.',
+      'Todavía hay margen para que innovación influya más en decisiones de crecimiento y portfolio.',
     ],
-    nextMove: 'Conectar diseño con estrategia, métricas y decisiones de crecimiento.',
+    nextMove: 'Conectar innovación cultural y operativa con decisiones estratégicas del negocio.',
   },
   4: {
-    title: 'Peldaño 4 · Diseño como estrategia',
-    shortName: 'Diseño como estrategia',
-    summary: 'El diseño ya opera como una capacidad que influye en innovación, construcción de soluciones, experiencia de clientes y ventaja competitiva.',
-    implication: 'El foco deja de ser “ordenar la base” y pasa a ser cómo sostener la disciplina, escalar lo que funciona y transformar esa capacidad en un activo diferencial del holding.',
+    title: 'Peldaño 4 · Innovación estratégica design-led',
+    shortName: 'Innovación estratégica',
+    summary: 'La innovación funciona como una capacidad estratégica: guía cultura, decisiones, experiencias, procesos y nuevas oportunidades de negocio.',
+    implication: 'El foco deja de ser instalar la base y pasa a ser sostener la ventaja: escalar prácticas, desarrollar nuevos productos consultivos y medir impacto con más sofisticación.',
     signals: [
-      'Diseño participa en decisiones relevantes sobre negocio, oferta y transformación.',
-      'El sistema combina calidad creativa con proceso, aprendizaje y gobierno.',
-      'Existe mayor capacidad para crear soluciones nuevas y más centradas en cliente.',
+      'La dirección usa diseño e innovación para decidir, priorizar y transformar.',
+      'La voz del usuario está presente de forma sistemática en la operación y el negocio.',
+      'Los equipos pueden prototipar, aprender y escalar soluciones con disciplina.',
     ],
-    nextMove: 'Escalar la ventaja, sofisticar portfolio y sostener la mejora continua como disciplina de management.',
+    nextMove: 'Escalar la capacidad como activo de TEXO y convertirla en oferta consultiva para clientes externos.',
   },
 };
 
@@ -63,27 +63,28 @@ export function getDimensionInterpretation(dimension: DimensionKey, score: numbe
   const label = DIMENSION_LABELS[dimension];
 
   if (score < 2) {
-    return `${label} hoy funciona de forma muy incipiente. La capacidad existe de manera reactiva o aislada y todavía no alcanza para sostener una transformación consistente.`;
+    return `${label} hoy funciona de forma incipiente. La práctica existe poco, aparece de manera reactiva o depende de personas puntuales.`;
   }
 
   if (score < 3) {
-    return `${label} ya muestra señales de desarrollo, pero la práctica todavía es inconsistente. Aparece en algunos casos y en otros no, lo que genera una experiencia desigual.`;
+    return `${label} muestra señales de desarrollo, pero todavía no se sostiene con consistencia. Conviene convertir las prácticas aisladas en rutinas visibles.`;
   }
 
   if (score < 4) {
-    return `${label} ya está bastante instalada. Se ve una práctica repetible y con cierta madurez, aunque todavía hay margen para volverla más medible, más escalable y más estratégica.`;
+    return `${label} ya está razonablemente instalada. Hay una base repetible, aunque todavía puede ganar medición, profundidad y alcance transversal.`;
   }
 
-  return `${label} es hoy una fortaleza del sistema. La capacidad está presente, se sostiene con bastante consistencia y puede actuar como palanca para acelerar otras dimensiones.`;
+  return `${label} es una fortaleza del sistema. Puede usarse como palanca para acelerar otras dimensiones y para mostrar casos internos de referencia.`;
 }
 
 export function buildNarrativeFromScores(step: LadderStep, scores: DimensionScore) {
-  const weakest = Object.entries(scores).sort((a, b) => a[1] - b[1])[0];
-  const strongest = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+  const entries = DIMENSIONS.map((key) => [key, Number(scores?.[key] ?? 0)] as const);
+  const weakest = [...entries].sort((a, b) => a[1] - b[1])[0];
+  const strongest = [...entries].sort((a, b) => b[1] - a[1])[0];
 
   const weakLabel = DIMENSION_LABELS[weakest[0] as DimensionKey];
   const strongLabel = DIMENSION_LABELS[strongest[0] as DimensionKey];
 
   const opener = STEP_COPY[step].summary;
-  return `${opener} En esta lectura, ${strongLabel.toLowerCase()} aparece como una capacidad relativamente más desarrollada, mientras que ${weakLabel.toLowerCase()} sigue actuando como una de las brechas que más condiciona el salto al siguiente nivel.`;
+  return `${opener} En esta lectura, ${strongLabel.toLowerCase()} aparece como una capacidad relativamente más desarrollada, mientras que ${weakLabel.toLowerCase()} actúa como una de las brechas que más condiciona el salto al siguiente nivel.`;
 }

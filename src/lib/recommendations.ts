@@ -1,42 +1,48 @@
-import { DIMENSION_LABELS } from '@/lib/questionnaire';
 import { DimensionKey, DimensionScore, LadderStep, RecommendationBlock } from '@/lib/types';
+import { DIMENSION_LABELS } from '@/lib/questionnaire';
 
 const PLAYBOOK: Record<DimensionKey, { rationale: string; low: string[]; mid: string[]; high: string[] }> = {
-  strategy: {
-    rationale: 'Sin patrocinio, objetivos y métricas, diseño queda como servicio táctico y no como palanca de negocio.',
-    low: ['Nombrar un sponsor ejecutivo para diseño.', 'Definir una visión de diseño conectada con 3 objetivos de negocio.', 'Crear un dashboard mínimo con 3 KPIs de diseño.'],
-    mid: ['Incluir diseño en la priorización trimestral.', 'Vincular iniciativas de diseño a impacto comercial o eficiencia.', 'Estandarizar criterios de priorización entre negocio y diseño.'],
-    high: ['Usar diseño en decisiones de portfolio e innovación.', 'Instalar governance de diseño con revisión ejecutiva mensual.', 'Convertir métricas de diseño en input de dirección.'],
+  visionary: {
+    rationale: 'La innovación necesita un norte compartido, sponsorship visible y capacidad de ajustar estrategia cuando cambian usuarios y mercado.',
+    low: ['Definir una visión simple de innovación y customer centricity para la agencia.', 'Alinear a líderes en una sesión de sponsorship y criterios de decisión.', 'Elegir 2 desafíos donde la visión se traduzca en decisiones concretas.'],
+    mid: ['Instalar una revisión trimestral de estrategia de innovación.', 'Pedir evidencia de usuarios en iniciativas prioritarias.', 'Nombrar sponsors por frente o territorio de innovación.'],
+    high: ['Conectar la visión design-led con portfolio y nuevas ofertas.', 'Medir impacto de innovación en crecimiento, retención o eficiencia.', 'Usar la visión como marco para decisiones de inversión y talento.'],
   },
-  process: {
-    rationale: 'La madurez sube cuando diseño entra antes, trabaja con método y reduce retrabajo.',
-    low: ['Implementar un brief estándar para todos los proyectos.', 'Definir fases mínimas: discovery, exploración, validación, entrega.', 'Crear reviews obligatorias de calidad antes del handoff.'],
-    mid: ['Formalizar rituales semanales de revisión y seguimiento.', 'Alinear handoff entre diseño, cuentas y tecnología.', 'Medir retrabajo y causas de fricción entre áreas.'],
-    high: ['Escalar un playbook transversal de proyecto.', 'Optimizar tiempos de ciclo y eficiencia del proceso.', 'Usar métricas operativas para mejorar predictibilidad.'],
+  inspirational: {
+    rationale: 'La cultura se instala cuando los líderes modelan comportamientos, aprenden del error y celebran ejemplos concretos.',
+    low: ['Organizar encuentros directos entre líderes y usuarios/clientes.', 'Hacer una retrospectiva sin culpa sobre un proyecto reciente.', 'Recolectar y contar un primer caso interno de diseño en acción.'],
+    mid: ['Crear una rutina mensual de historias de aprendizaje.', 'Definir reglas claras para experimentar y aprender del error.', 'Incluir a líderes en al menos un research, discovery o test por trimestre.'],
+    high: ['Convertir historias de innovación en activos de cultura interna.', 'Reconocer públicamente comportamientos design-led.', 'Formar líderes como facilitadores de aprendizaje y experimentación.'],
   },
-  research: {
-    rationale: 'Sin evidencia de usuarios y mercado, el diseño mejora forma, pero no necesariamente resultados.',
-    low: ['Introducir tests ligeros antes de lanzar piezas o experiencias.', 'Centralizar hallazgos en una biblioteca simple de insights.', 'Definir hipótesis por proyecto y validarlas con datos.'],
-    mid: ['Integrar research en discovery y post-lanzamiento.', 'Unificar fuentes de evidencia cuantitativa y cualitativa.', 'Crear una rutina de aprendizaje reusable por tipo de proyecto.'],
-    high: ['Usar insights para descubrir nuevas oportunidades.', 'Cruzar research con métricas de negocio para priorización.', 'Convertir research en activo estratégico compartido.'],
+  relational: {
+    rationale: 'Sin seguridad psicológica y relaciones de confianza, la información crítica no llega a tiempo y las ideas no ganan adopción.',
+    low: ['Crear un espacio seguro para levantar fricciones de proceso.', 'Asegurar respuesta visible a feedback del equipo.', 'Socializar cambios antes de imponer nuevos procesos.'],
+    mid: ['Instalar retrospectivas con compromisos de acción.', 'Entrenar a líderes en escucha y preguntas abiertas.', 'Mapear resistencias y aliados por cada iniciativa de cambio.'],
+    high: ['Usar relaciones internas como acelerador de adopción.', 'Medir confianza y calidad de feedback entre áreas.', 'Crear comunidades internas de práctica design-led.'],
   },
-  craft: {
-    rationale: 'El craft sostiene percepción de valor, consistencia y credibilidad, pero debe estar sistematizado.',
-    low: ['Definir criterios mínimos de calidad visual.', 'Crear templates base y componentes reutilizables.', 'Instalar sesiones quincenales de crítica de diseño.'],
-    mid: ['Fortalecer librerías, patrones y consistencia multi-canal.', 'Estandarizar feedback y checklist de calidad.', 'Elevar accesibilidad, jerarquía y claridad visual.'],
-    high: ['Escalar design system según casos de uso.', 'Medir consistencia y velocidad de producción.', 'Desarrollar craft especializado por disciplina.'],
+  identity: {
+    rationale: 'La innovación se vuelve sostenible cuando pasa a formar parte de valores, decisiones de personas y representación sistemática del usuario.',
+    low: ['Traducir customer centricity a comportamientos esperados por rol.', 'Incluir voz del usuario en reuniones clave de proyectos.', 'Mapear el ecosistema de usuarios de una cuenta o servicio prioritario.'],
+    mid: ['Incorporar comportamientos design-led en onboarding y evaluación.', 'Crear una rutina de insights de clientes y audiencias.', 'Definir responsables de traer la voz del usuario a decisiones importantes.'],
+    high: ['Integrar diseño e innovación en prácticas de talento y liderazgo.', 'Convertir la voz del usuario en input permanente de dirección.', 'Usar el ecosistema de usuarios para detectar nuevas oportunidades de negocio.'],
   },
-  operations: {
-    rationale: 'La madurez no escala sin estructura, claridad de roles, capacidad y gobierno.',
-    low: ['Definir ownerships y expectativas por rol.', 'Visibilizar backlog, bloqueos y capacidad del equipo.', 'Crear reglas claras de intake y priorización.'],
-    mid: ['Ajustar capacity planning según demanda real.', 'Instalar governance operativo con SLAs o acuerdos de servicio.', 'Diseñar un plan de desarrollo de talento.'],
-    high: ['Conectar staffing, calidad y rentabilidad.', 'Prever necesidades futuras de capacidad y perfiles.', 'Escalar gobierno y reporting de operación.'],
+  adoption: {
+    rationale: 'El diseño escala cuando se vuelve fácil de usar, útil para procesos internos y reforzado por autonomía y rituales.',
+    low: ['Crear una guía simple de discovery/prototipado para equipos no especialistas.', 'Rediseñar un proceso interno usando feedback de quienes lo usan.', 'Definir qué decisiones pueden tomar los equipos sin escalar.'],
+    mid: ['Instalar rituales de aprendizaje, demos o huddles mensuales.', 'Crear kits simples para briefs, tests y retrospectivas.', 'Dar autonomía con límites claros para pilotos de mejora.'],
+    high: ['Escalar herramientas design-led a toda la agencia.', 'Medir adopción de rituales y calidad de decisiones autónomas.', 'Formar champions internos por área o agencia.'],
+  },
+  innovation: {
+    rationale: 'La innovación por diseño combina prototipos rápidos, diversidad de perspectivas, paciencia con ambigüedad y mejora continua.',
+    low: ['Seleccionar un piloto pequeño para prototipar en 30 días.', 'Probar una hipótesis con usuarios antes de escalar.', 'Hacer una sesión cross-funcional para enriquecer una solución.'],
+    mid: ['Crear checkpoints de aprendizaje en proyectos piloto.', 'Definir criterios para decidir qué prototipos escalan.', 'Separar espacios de exploración de la operación diaria.'],
+    high: ['Construir un portfolio de experimentos y aprendizajes.', 'Medir mejora continua y aprendizajes como indicadores de innovación.', 'Transformar capacidades internas en una oferta consultiva para corporaciones.'],
   },
 };
 
 export function getDimensionRecommendations(scores: DimensionScore, ladderStep: LadderStep): RecommendationBlock[] {
-  return Object.entries(scores).map(([dimension, score]) => {
-    const key = dimension as DimensionKey;
+  return (Object.keys(PLAYBOOK) as DimensionKey[]).map((key) => {
+    const score = Number(scores?.[key] ?? 0);
     const library = PLAYBOOK[key];
 
     let priority: 'Alta' | 'Media' | 'Baja' = 'Baja';
@@ -45,7 +51,7 @@ export function getDimensionRecommendations(scores: DimensionScore, ladderStep: 
 
     if (score < 2.5) {
       priority = 'Alta';
-      headline = 'Cerrar brecha estructural';
+      headline = 'Construir base cultural y operativa';
       actions = library.low;
     } else if (score < 3.7) {
       priority = ladderStep <= 2 ? 'Alta' : 'Media';

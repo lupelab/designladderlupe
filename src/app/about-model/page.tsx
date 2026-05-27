@@ -15,25 +15,25 @@ export default async function AboutModelPage() {
     <AppShell
       title="Cómo funciona este diagnóstico"
       agency={agency}
-      subtitle="Esta sección explica de forma abierta qué mide la plataforma, cómo se calcula el score y qué significa cada peldaño para que el resultado no dependa de interpretación personal."
+      subtitle="Esta sección explica qué mide la plataforma, cómo se calcula el score y cómo se interpretan los peldaños de madurez de cultura de innovación design-led."
     >
       <section className="panel article-panel">
         <div className="article-grid">
           <article>
             <p className="eyebrow">Propósito</p>
             <h2>Qué busca medir la herramienta</h2>
-            <p>El diagnóstico ayuda a entender qué tan integrada está la gestión del diseño dentro de la forma de trabajar de cada agencia del holding. No mide solo “calidad visual”: también observa estrategia, proceso, insights y capacidad operativa para sostener la transformación.</p>
+            <p>El diagnóstico ayuda a entender qué tan preparada está cada agencia para instalar innovación como cultura y sistema operativo. No mide solo diseño funcional: observa liderazgo, relaciones, identidad, adopción interna y capacidad de experimentar desde usuarios.</p>
           </article>
           <article>
             <p className="eyebrow">Qué devuelve</p>
             <h2>Cómo leer el resultado</h2>
-            <p>El sistema genera un score general, una lectura por dimensión, un peldaño de madurez, comparación con la referencia TEXO y un plan de acción priorizado. La idea es que el resultado sirva para conversar, decidir e intervenir, no solo para “poner una nota”.</p>
+            <p>El sistema genera un score general, una lectura por bloque, un peldaño de madurez, comparación con la referencia TEXO y un plan de acción priorizado. La idea es que el resultado sirva para activar conversaciones, pilotos e intervenciones, no solo para “poner una nota”.</p>
           </article>
         </div>
       </section>
 
       <section className="panel article-panel">
-        <p className="eyebrow">Dimensiones evaluadas</p>
+        <p className="eyebrow">Bloques evaluados</p>
         <div className="results-dimension-grid">
           {DIMENSIONS.map((dimension) => (
             <article className="result-dimension-card" key={dimension}>
@@ -60,7 +60,7 @@ export default async function AboutModelPage() {
       </section>
 
       <section className="panel article-panel">
-        <p className="eyebrow">Peldaños de la Design Ladder</p>
+        <p className="eyebrow">Peldaños de madurez</p>
         <div className="results-dimension-grid">
           {Object.entries(STEP_COPY).map(([key, step]) => (
             <article className="result-dimension-card" key={key}>

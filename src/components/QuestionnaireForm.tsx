@@ -219,7 +219,7 @@ export function QuestionnaireForm() {
           </div>
           <div className="progress-copy">
             <strong>{Math.round(((currentStep + 1) / grouped.length) * 100)}%</strong>
-            <span>del recorrido por dimensiones</span>
+            <span>del recorrido por bloques</span>
           </div>
         </div>
 
@@ -253,10 +253,11 @@ export function QuestionnaireForm() {
           {activeGroup.questions.map((question, index) => (
             <article className="question-card" key={question.id}>
               <div className="question-copy">
-                <span className="question-index">{index + 1}</span>
+                <span className="question-index">P{question.principleNumber}</span>
                 <div>
                   <div className="question-title-row">
                     <h3>{question.title}</h3>
+                    <small className="muted">Principio {question.principleNumber}: {question.principleName}</small>
                     {question.tooltip ? <Tooltip content={question.tooltip} label={`Explicación de ${question.title}`} /> : null}
                   </div>
                   <p>{question.description}</p>
@@ -323,7 +324,7 @@ export function QuestionnaireForm() {
               className="button button-primary"
               onClick={() => setCurrentStep((prev) => Math.min(prev + 1, grouped.length - 1))}
               disabled={!canAdvance}
-              title="Ir al siguiente bloque. Se habilita cuando respondés todas las preguntas de esta dimensión"
+              title="Ir al siguiente bloque. Se habilita cuando respondés todas las preguntas de este bloque"
             >
               Siguiente bloque
             </button>

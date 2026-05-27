@@ -1,24 +1,46 @@
-# TEXO Design Maturity Platform
+# TEXO Innovation Culture Ladder
 
-Plataforma de diagnóstico de madurez de diseño para agencias del holding TEXO.
+Plataforma de diagnóstico y seguimiento de madurez de cultura de innovación design-led para agencias TEXO.
 
-## Qué incluye esta versión
+Esta versión mantiene la estructura original del proyecto Design Ladder:
 
-- cuestionario por bloques y guardado local de borrador
-- lenguaje adaptado a agencias de publicidad y medios
-- glosario integrado
-- tooltips y ejemplos aplicados por pregunta
-- resultados más desarrollados
-- comparación contra referencia TEXO
-- explicación del modelo y de los peldaños
+- acceso por agencia
+- cuestionario estructurado
+- guardado de borrador local
+- scoring automático
+- peldaños de madurez
+- informe de resultados
+- comparación con benchmark TEXO
+- historial vía Google Sheets / Apps Script
 
-## Variables necesarias
+## Ajuste conceptual incorporado
+
+El diagnóstico fue adaptado al nuevo enfoque de **Design-Led Culture** basado en 6 bloques y 22 principios:
+
+1. Liderazgo visionario
+2. Liderazgo inspiracional
+3. Liderazgo relacional
+4. Diseño como identidad
+5. Adopción del diseño
+6. Innovación por diseño
+
+Cada uno de los 22 principios fue convertido en una pregunta diagnóstica con escala 1 a 5, tooltip, ejemplo aplicado al contexto de agencias y recomendaciones automáticas.
+
+## Nuevo posicionamiento
+
+La plataforma deja de ser solo un diagnóstico de madurez de diseño y pasa a operar como una puerta de entrada para un producto de consultoría de innovación:
+
+**Diagnóstico → informe ejecutivo → mapa de brechas → roadmap → pilotos → seguimiento de evolución.**
+
+## Variables de entorno
+
+Mantiene las mismas variables del proyecto original:
 
 - `GSCRIPT_URL`
 - `GSCRIPT_TOKEN`
-- `ADMIN_TOKEN`
-- `ADMIN_SESSION_SECRET`
 - `AGENCY_SESSION_SECRET`
+- `ADMIN_SESSION_SECRET`
+- `ADMIN_TOKEN`
 - `AGENCY_PASSWORD_ROGER`
 - `AGENCY_PASSWORD_LUPE`
 - `AGENCY_PASSWORD_AMPLIFY`
@@ -28,10 +50,15 @@ Plataforma de diagnóstico de madurez de diseño para agencias del holding TEXO.
 - `AGENCY_PASSWORD_ROW`
 - `AGENCY_PASSWORD_BPR`
 
-## Nota sobre benchmark TEXO
+## Desarrollo local
 
-La comparación con el holding usa una referencia editable en:
+```bash
+npm install
+npm run dev
+```
 
-`src/lib/benchmark.ts`
+## Build
 
-Si más adelante querés que el benchmark salga automáticamente de todas las agencias, habrá que extender Apps Script para listar evaluaciones cross-agency.
+```bash
+npm run build
+```

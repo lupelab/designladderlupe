@@ -16,10 +16,10 @@ import { DimensionScore, LadderStep } from '@/lib/types';
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 const TARGET_BY_STEP: Record<LadderStep, DimensionScore> = {
-  1: { strategy: 2.2, process: 2.3, research: 2.0, craft: 2.4, operations: 2.1 },
-  2: { strategy: 3.1, process: 3.2, research: 2.8, craft: 3.2, operations: 2.9 },
-  3: { strategy: 4.1, process: 4.0, research: 3.7, craft: 3.9, operations: 3.8 },
-  4: { strategy: 4.6, process: 4.4, research: 4.2, craft: 4.3, operations: 4.3 },
+  1: { visionary: 2.2, inspirational: 2.1, relational: 2.0, identity: 2.2, adoption: 2.1, innovation: 2.2 },
+  2: { visionary: 3.1, inspirational: 3.0, relational: 2.9, identity: 3.1, adoption: 3.0, innovation: 3.1 },
+  3: { visionary: 4.0, inspirational: 3.8, relational: 3.7, identity: 3.9, adoption: 3.8, innovation: 4.0 },
+  4: { visionary: 4.5, inspirational: 4.4, relational: 4.2, identity: 4.4, adoption: 4.3, innovation: 4.5 },
 };
 
 export function RadarChart({
@@ -74,9 +74,9 @@ export function RadarChart({
     <div className="radar-card">
       <div className="section-head">
         <div>
-          <p className="eyebrow">Mapa de capacidades</p>
-          <h3>Lectura visual por dimensión</h3>
-          <p className="muted">Compará la forma actual de tu agencia con la referencia del siguiente peldaño y con la base de TEXO.</p>
+          <p className="eyebrow">Mapa de cultura de innovación</p>
+          <h3>Lectura visual por bloque</h3>
+          <p className="muted">Compará la cultura actual de innovación de tu agencia con la referencia del siguiente peldaño y con la base TEXO.</p>
         </div>
       </div>
 

@@ -1,41 +1,43 @@
 import { AssessmentRecord, DimensionScore, HoldingBenchmark } from '@/lib/types';
+import { DIMENSIONS } from '@/lib/questionnaire';
 
 export const TEXO_HOLDING_BENCHMARK: HoldingBenchmark = {
-  overallScore: 2.82,
+  overallScore: 2.78,
   ladderStep: 2,
   maturityLevel: 'Styling',
   dimensionScores: {
-    strategy: 2.55,
-    process: 2.9,
-    research: 2.45,
-    craft: 3.2,
-    operations: 2.8,
+    visionary: 2.65,
+    inspirational: 2.75,
+    relational: 2.55,
+    identity: 2.7,
+    adoption: 2.85,
+    innovation: 2.8,
   },
   narrative:
-    'Esta referencia TEXO representa un estado de madurez todavía intermedio: hay fortalezas creativas y señales de orden en proceso, pero el uso de diseño para construir nuevas soluciones, alinear áreas y trabajar con insights todavía es irregular.',
+    'Esta referencia TEXO representa un estado intermedio: existen señales de diseño, innovación y customer centricity, pero todavía dependen de líderes, equipos o iniciativas puntuales más que de un sistema cultural y operativo instalado.',
 };
 
+export function emptyDimensionScores(): DimensionScore {
+  return DIMENSIONS.reduce((acc, dimension) => {
+    acc[dimension] = 0;
+    return acc;
+  }, {} as DimensionScore);
+}
+
 export function averageDimensionScores(items: AssessmentRecord[]): DimensionScore {
-  if (!items.length) {
-    return { strategy: 0, process: 0, research: 0, craft: 0, operations: 0 };
-  }
+  if (!items.length) return emptyDimensionScores();
 
-  const totals = { strategy: 0, process: 0, research: 0, craft: 0, operations: 0 };
+  const totals = emptyDimensionScores();
   for (const item of items) {
-    totals.strategy += item.dimensionScores.strategy;
-    totals.process += item.dimensionScores.process;
-    totals.research += item.dimensionScores.research;
-    totals.craft += item.dimensionScores.craft;
-    totals.operations += item.dimensionScores.operations;
+    for (const dimension of DIMENSIONS) {
+      totals[dimension] += Number(item.dimensionScores?.[dimension] ?? 0);
+    }
   }
 
-  return {
-    strategy: Number((totals.strategy / items.length).toFixed(2)),
-    process: Number((totals.process / items.length).toFixed(2)),
-    research: Number((totals.research / items.length).toFixed(2)),
-    craft: Number((totals.craft / items.length).toFixed(2)),
-    operations: Number((totals.operations / items.length).toFixed(2)),
-  };
+  return DIMENSIONS.reduce((acc, dimension) => {
+    acc[dimension] = Number((totals[dimension] / items.length).toFixed(2));
+    return acc;
+  }, {} as DimensionScore);
 }
 
 export function averageOverallScore(items: AssessmentRecord[]) {
