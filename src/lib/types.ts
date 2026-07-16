@@ -6,7 +6,8 @@ export type AgencyName =
   | 'NASTA'
   | 'BRICK'
   | 'ROW'
-  | 'BPR';
+  | 'BPR'
+  | 'TEXO';
 
 export type DimensionKey =
   | 'visionary'
@@ -97,4 +98,43 @@ export type HoldingBenchmark = {
   maturityLevel: string;
   dimensionScores: DimensionScore;
   narrative: string;
+};
+
+
+export type ActionPhase = 'Entender' | 'Priorizar' | 'Implementar' | 'Medir' | 'Escalar';
+export type ActionStatus = 'Pendiente' | 'En curso' | 'Bloqueada' | 'Completada' | 'Descartada';
+export type ActionPriority = 'Alta' | 'Media' | 'Baja';
+export type ActionLevel = 'Alto' | 'Medio' | 'Bajo';
+export type ScaleSuggestion = 'Nunca' | 'A veces' | 'En desarrollo' | 'Frecuente' | 'Siempre';
+
+export type ActionItem = {
+  id: string;
+  agency: AgencyName;
+  assessmentId?: string;
+  dimension?: DimensionKey | 'general';
+  title: string;
+  description: string;
+  phase: ActionPhase;
+  ownerName: string;
+  ownerEmail?: string;
+  status: ActionStatus;
+  priority: ActionPriority;
+  impact: ActionLevel;
+  effort: ActionLevel;
+  dueDate?: string;
+  nextReviewDate?: string;
+  successMetric?: string;
+  evidence?: string;
+  comments?: string;
+  source: 'IA' | 'Recomendación automática' | 'Manual';
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ConsistencyReading = {
+  score: number;
+  label: 'Inicial' | 'En instalación' | 'Consistente' | 'Sistemático';
+  suggestedScale: ScaleSuggestion;
+  rationale: string;
+  checklist: Array<{ label: string; done: boolean }>;
 };

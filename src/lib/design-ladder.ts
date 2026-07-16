@@ -13,7 +13,7 @@ export const STEP_COPY: Record<LadderStep, {
     title: 'Peldaño 1 · Innovación reactiva',
     shortName: 'Innovación reactiva',
     summary: 'La innovación aparece de forma aislada, tardía o dependiente de algunas personas, sin una base cultural ni operativa clara.',
-    implication: 'El foco inmediato es construir condiciones mínimas: visión común, liderazgo visible, conversaciones honestas y herramientas simples para empezar a trabajar desde usuarios.',
+    implication: 'El foco inmediato es construir condiciones mínimas: visión común, liderazgo visible, conversaciones honestas y herramientas simples para empezar a trabajar desde personas.',
     signals: [
       'Las iniciativas surgen como respuesta a urgencias más que como sistema.',
       'El diseño y la innovación todavía no están instalados en rituales, decisiones o responsabilidades.',
@@ -24,19 +24,19 @@ export const STEP_COPY: Record<LadderStep, {
   2: {
     title: 'Peldaño 2 · Innovación táctica',
     shortName: 'Innovación táctica',
-    summary: 'Existen esfuerzos visibles de innovación y customer centricity, pero todavía son inconsistentes y dependen de proyectos, líderes o equipos específicos.',
-    implication: 'El siguiente salto es convertir buenas intenciones en prácticas repetibles: sponsorship, rituales, escucha activa, voz del usuario y autonomía con límites claros.',
+    summary: 'Existen esfuerzos visibles de innovación y diseño centrado en las personas, pero todavía son inconsistentes y dependen de proyectos, líderes o equipos específicos.',
+    implication: 'El siguiente salto es convertir buenas intenciones en prácticas repetibles: sponsorship, rituales, escucha activa, voz del persona y autonomía con límites claros.',
     signals: [
       'Hay proyectos o casos interesantes, pero todavía no forman un sistema común.',
-      'La cultura design-led aparece en algunos equipos y se pierde en otros.',
-      'La orientación a usuarios existe, aunque no siempre influye en decisiones clave.',
+      'La cultura centrado en personas aparece en algunos equipos y se pierde en otros.',
+      'La orientación a personas existe, aunque no siempre influye en decisiones clave.',
     ],
-    nextMove: 'Sistematizar los principios design-led y convertirlos en comportamientos observables en toda la agencia.',
+    nextMove: 'Sistematizar los principios centrado en personas y convertirlos en comportamientos observables en toda la agencia.',
   },
   3: {
     title: 'Peldaño 3 · Innovación como proceso',
     shortName: 'Innovación como proceso',
-    summary: 'La agencia ya cuenta con prácticas repetibles para innovar, aprender y trabajar desde usuarios, aunque todavía puede ganar profundidad estratégica.',
+    summary: 'La agencia ya cuenta con prácticas repetibles para innovar, aprender y trabajar desde personas, aunque todavía puede ganar profundidad estratégica.',
     implication: 'Para avanzar, hay que conectar la cultura de innovación con estrategia, modelo de negocio, desarrollo de talento, métricas y portafolio de nuevas soluciones.',
     signals: [
       'Hay rituales, lenguaje y herramientas compartidas.',
@@ -46,13 +46,13 @@ export const STEP_COPY: Record<LadderStep, {
     nextMove: 'Conectar innovación cultural y operativa con decisiones estratégicas del negocio.',
   },
   4: {
-    title: 'Peldaño 4 · Innovación estratégica design-led',
+    title: 'Peldaño 4 · Innovación estratégica centrado en personas',
     shortName: 'Innovación estratégica',
     summary: 'La innovación funciona como una capacidad estratégica: guía cultura, decisiones, experiencias, procesos y nuevas oportunidades de negocio.',
     implication: 'El foco deja de ser instalar la base y pasa a ser sostener la ventaja: escalar prácticas, desarrollar nuevos productos consultivos y medir impacto con más sofisticación.',
     signals: [
       'La dirección usa diseño e innovación para decidir, priorizar y transformar.',
-      'La voz del usuario está presente de forma sistemática en la operación y el negocio.',
+      'La voz del persona está presente de forma sistemática en la operación y el negocio.',
       'Los equipos pueden prototipar, aprender y escalar soluciones con disciplina.',
     ],
     nextMove: 'Escalar la capacidad como activo de TEXO y convertirla en oferta consultiva para clientes externos.',

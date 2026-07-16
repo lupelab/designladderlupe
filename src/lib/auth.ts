@@ -16,6 +16,7 @@ function getAgencyPasswordMap(): Record<AgencyName, string> {
     BRICK: process.env.AGENCY_PASSWORD_BRICK || '',
     ROW: process.env.AGENCY_PASSWORD_ROW || '',
     BPR: process.env.AGENCY_PASSWORD_BPR || '',
+    TEXO: process.env.AGENCY_PASSWORD_TEXO || '',
   };
 }
 

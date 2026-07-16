@@ -13,9 +13,9 @@ export default async function QuestionnairePage() {
 
   return (
     <AppShell
-      title="Diagnóstico de madurez de diseño"
+      title="Cuestionario de cultura de innovación y diseño centrado en las personas"
       agency={agency}
-      subtitle="Respondé por bloques. Cada dimensión tiene ejemplos aplicados a agencia y definiciones breves para que el diagnóstico sea claro, homogéneo y fácil de usar."
+      subtitle="Antes de responder, revisá el libro, el instructivo y el glosario. El cuestionario debe completarlo una sola persona en representación de la agencia o empresa para mantener una lectura consistente."
       actions={
         <div className="inline-actions">
           <Link href="/history" className="button button-secondary" title="Ver evaluaciones guardadas de tu agencia">

@@ -33,6 +33,7 @@ export function QuestionnaireForm() {
   const [error, setError] = useState('');
   const [draftLoaded, setDraftLoaded] = useState(false);
   const [openExamples, setOpenExamples] = useState<Record<string, boolean>>({});
+  const [prep, setPrep] = useState({ book: false, guide: false, glossary: false });
 
   useEffect(() => {
     try {
@@ -76,7 +77,8 @@ export function QuestionnaireForm() {
   const completion = Math.round((doneQuestions / totalQuestions) * 100);
   const isLastStep = currentStep === grouped.length - 1;
   const canAdvance = activeGroup.questions.every((q) => answers[q.id] > 0);
-  const missing = QUESTIONS.some((q) => !answers[q.id]) || !orgName.trim();
+  const prepComplete = prep.book && prep.guide && prep.glossary;
+  const missing = QUESTIONS.some((q) => !answers[q.id]) || !orgName.trim() || !prepComplete;
 
   function handleAnswer(questionId: string, value: number) {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
@@ -138,8 +140,8 @@ export function QuestionnaireForm() {
       <section className="panel intake-panel">
         <div className="intake-head">
           <div>
-            <p className="eyebrow">Contexto del diagnóstico</p>
-            <h2>Antes de responder, contanos desde qué cuenta o unidad estás mirando el diagnóstico</h2>
+            <p className="eyebrow">Leer · aprender · implementar</p>
+            <h2>Antes de responder, confirmá el recorrido mínimo</h2>
           </div>
           <div className="inline-actions">
             <Link href="/glossary" className="button button-secondary button-small" title="Abrir el glosario con definiciones del modelo">
@@ -156,25 +158,53 @@ export function QuestionnaireForm() {
           </div>
         </div>
 
+
+        <div className="prep-checklist">
+          <label className={prep.book ? 'prep-item prep-item-done' : 'prep-item'}>
+            <input type="checkbox" checked={prep.book} onChange={(e) => setPrep((prev) => ({ ...prev, book: e.target.checked }))} />
+            <span>
+              <strong>1. Descargar el libro PDF</strong>
+              <small>Usalo como marco base antes de interpretar el diagnóstico.</small>
+            </span>
+            <Link href="/master-plan-innovacion-texo.pdf" target="_blank" className="button button-secondary button-small">Descargar</Link>
+          </label>
+          <label className={prep.guide ? 'prep-item prep-item-done' : 'prep-item'}>
+            <input type="checkbox" checked={prep.guide} onChange={(e) => setPrep((prev) => ({ ...prev, guide: e.target.checked }))} />
+            <span>
+              <strong>2. Leer el instructivo</strong>
+              <small>Una sola persona debe completar en representación de la agencia o empresa.</small>
+            </span>
+            <Link href="/about-model" className="button button-secondary button-small">Ver instructivo</Link>
+          </label>
+          <label className={prep.glossary ? 'prep-item prep-item-done' : 'prep-item'}>
+            <input type="checkbox" checked={prep.glossary} onChange={(e) => setPrep((prev) => ({ ...prev, glossary: e.target.checked }))} />
+            <span>
+              <strong>3. Revisar glosario</strong>
+              <small>Alinea conceptos clave y reduce la subjetividad al responder.</small>
+            </span>
+            <Link href="/glossary" className="button button-secondary button-small">Ver glosario</Link>
+          </label>
+        </div>
+
         <div className="card-grid two-up">
           <div className="field">
-            <label>Organización, cuenta o unidad evaluada</label>
+            <label>Agencia, empresa o unidad evaluada</label>
             <input
               value={orgName}
               onChange={(e) => setOrgName(e.target.value)}
-              placeholder="Ej. New business, creatividad, medios o una cuenta puntual"
+              placeholder="Ej. LUPE, TEXO, OMD, creatividad, medios o una unidad específica"
               required
               title="Nombre de la cuenta, unidad o frente de trabajo sobre el que estás haciendo el diagnóstico"
             />
           </div>
 
           <div className="field">
-            <label>Rol del evaluador</label>
+            <label>Rol de quien completa</label>
             <input
               value={role}
               onChange={(e) => setRole(e.target.value)}
               placeholder="Ej. Dirección, estrategia, creatividad, medios"
-              title="Nos ayuda a interpretar desde qué mirada fue respondido el diagnóstico"
+              title="Se recomienda que complete una persona con mirada transversal de la agencia"
             />
           </div>
 
@@ -202,7 +232,7 @@ export function QuestionnaireForm() {
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Qué está pasando hoy, qué iniciativas están en curso, qué brechas sienten o qué quieren mejorar."
+              placeholder="Contexto breve: proyectos en curso, iniciativas de innovación, dudas o prioridades actuales."
               rows={4}
               title="Este campo sirve para registrar contexto del momento y que luego el resultado sea más fácil de leer"
             />
@@ -225,6 +255,7 @@ export function QuestionnaireForm() {
 
         <div className="dimension-intro">
           <p>{DIMENSION_INTROS[activeGroup.dimension]}</p>
+          <p><strong>Regla de respuesta:</strong> respondé pensando en prácticas reales de los últimos 3 meses. Si una acción del plan ya se ejecutó, marcá Frecuente solo si se repitió y dejó evidencia; marcá Siempre solo si quedó instalada como práctica estable.</p>
         </div>
 
         <div className="step-tabs" aria-label="Bloques del cuestionario">
@@ -337,7 +368,7 @@ export function QuestionnaireForm() {
       <section className="submit-strip">
         <div>
           <p className="eyebrow">Antes de generar resultados</p>
-          <h3>El diagnóstico guarda tus respuestas, calcula la madurez actual y genera una lectura detallada con brechas, fortalezas y prioridades.</h3>
+          <h3>El diagnóstico guarda tus respuestas, calcula la madurez actual y genera conclusiones cortas, sectorizadas y orientadas a próximos pasos.</h3>
         </div>
 
         <button
