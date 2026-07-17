@@ -17,6 +17,10 @@ function priorityClass(priority: ActionItem['priority']) {
   return `priority-${priority.toLowerCase()}`;
 }
 
+function isNpsAction(action: ActionItem) {
+  return /Acción derivada del NPS/i.test(action.description || '') || /\[NPS:/i.test(action.evidence || '') || /Origen NPS/i.test(action.evidence || '');
+}
+
 export function ActionPlanClient({
   initialActions,
   latestAssessment,
@@ -36,6 +40,7 @@ export function ActionPlanClient({
   const sourceActions = latestAssessment
     ? actions.filter((action) => action.assessmentId === latestAssessment.id)
     : [];
+  const npsActions = actions.filter(isNpsAction);
 
   async function persist(action: ActionItem, patch: Partial<ActionItem>) {
     const previous = action;
@@ -94,9 +99,9 @@ export function ActionPlanClient({
       <section className="panel simple-plan-overview">
         <div className="simple-plan-heading">
           <div>
-            <span className="hero-badge">Del diagnóstico a la implementación</span>
-            <h2>Un solo tablero para planificar y hacer seguimiento</h2>
-            <p>Las prioridades del último diagnóstico se convierten automáticamente en tarjetas. Arrastralas de una columna a otra a medida que avanzan.</p>
+            <span className="hero-badge">De la evidencia a la implementación</span>
+            <h2>Un solo tablero para diagnóstico y voz del cliente</h2>
+            <p>Las prioridades del diagnóstico interno y del NPS se convierten en tarjetas. Arrastralas de una columna a otra a medida que avanzan.</p>
           </div>
           <Link href="/action-plan/new" className="button button-secondary">Agregar acción manual</Link>
         </div>
@@ -118,6 +123,20 @@ export function ActionPlanClient({
         ) : (
           <div className="diagnosis-source-strip empty">
             <span>!</span><div><strong>Todavía no hay un diagnóstico</strong><p>Al completar el diagnóstico, la plataforma creará automáticamente las primeras acciones priorizadas.</p></div>
+          </div>
+        )}
+
+        {npsActions.length ? (
+          <div className="diagnosis-source-strip nps-source-strip">
+            <span>N</span>
+            <div>
+              <strong>Acciones conectadas al NPS</strong>
+              <p>{npsActions.length} tarjetas nacieron de resultados y comentarios de clientes. Se gestionan en el mismo tablero que las acciones del diagnóstico.</p>
+            </div>
+          </div>
+        ) : (
+          <div className="diagnosis-source-strip nps-source-strip empty">
+            <span>N</span><div><strong>Todavía no hay acciones NPS</strong><p>Entrá a NPS de clientes, elegí una agencia y convertí las oportunidades priorizadas en tarjetas.</p></div>
           </div>
         )}
       </section>
@@ -157,7 +176,7 @@ export function ActionPlanClient({
                     <p>{action.description}</p>
                     <div className="simple-action-tags">
                       <span>{action.dimension && action.dimension !== 'general' ? DIMENSION_LABELS[action.dimension] : 'General'}</span>
-                      {action.source === 'Recomendación automática' ? <span className="from-diagnosis">Diagnóstico</span> : null}
+                      {isNpsAction(action) ? <span className="from-nps">NPS</span> : action.source === 'Recomendación automática' ? <span className="from-diagnosis">Diagnóstico</span> : null}
                       {action.status === 'Bloqueada' ? <span className="blocked">Bloqueada</span> : null}
                     </div>
                     <div className="simple-action-meta">

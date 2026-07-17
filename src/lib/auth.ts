@@ -14,6 +14,7 @@ function getAgencyPasswordMap(): Record<AgencyName, string> {
     LUPE: process.env.AGENCY_PASSWORD_LUPE || '',
     AMPLIFY: process.env.AGENCY_PASSWORD_AMPLIFY || '',
     OMD: process.env.AGENCY_PASSWORD_OMD || '',
+    PHD: process.env.AGENCY_PASSWORD_PHD || '',
     NASTA: process.env.AGENCY_PASSWORD_NASTA || '',
     BRICK: process.env.AGENCY_PASSWORD_BRICK || '',
     ROW: process.env.AGENCY_PASSWORD_ROW || '',

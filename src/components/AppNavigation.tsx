@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: '/dashboard', label: 'Inicio', description: 'Vista general', icon: 'home' },
   { href: '/qualification', label: 'Preparación', description: 'Guía y certificación', icon: 'shield' },
   { href: '/questionnaire', label: 'Diagnóstico', description: 'Medir madurez', icon: 'clipboard' },
+  { href: '/nps', label: 'NPS de clientes', description: 'Escuchar y accionar', icon: 'pulse' },
   { href: '/action-plan', label: 'Plan y seguimiento', description: 'Mover acciones', icon: 'target' },
   { href: '/history', label: 'Historial', description: 'Comparar avances', icon: 'history' },
 ];

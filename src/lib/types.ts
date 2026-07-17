@@ -3,6 +3,7 @@ export type AgencyName =
   | 'LUPE'
   | 'AMPLIFY'
   | 'OMD'
+  | 'PHD'
   | 'NASTA'
   | 'BRICK'
   | 'ROW'

@@ -34,7 +34,7 @@ export default async function ActionPlanPage() {
     <AppShell
       title="Plan y seguimiento"
       agency={agency}
-      subtitle="Mové las acciones del diagnóstico entre etapas y registrá solamente la información necesaria para avanzar."
+      subtitle="Mové las acciones del diagnóstico y del NPS entre etapas y registrá solamente la información necesaria para avanzar."
       actions={<Link href="/history" className="button button-secondary">Ver historial</Link>}
     >
       {error ? <section className="panel result-alert"><strong>No se pudo cargar el tablero.</strong><p>{error}</p></section> : <ActionPlanClient initialActions={actions} latestAssessment={latestAssessment} />}

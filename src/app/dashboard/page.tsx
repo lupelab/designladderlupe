@@ -66,12 +66,13 @@ export default async function DashboardPage() {
 
       <section className="dashboard-flow panel">
         <div className="section-head"><div><p className="eyebrow">Qué hacer ahora</p><h2>Un flujo que empieza con criterio y termina en implementación</h2></div></div>
-        <div className="dashboard-flow-grid dashboard-flow-five">
+        <div className="dashboard-flow-grid dashboard-flow-six">
           <Link href="/qualification"><span>01</span><strong>Preparar</strong><p>Checklist, guía, simulacro y certificación.</p></Link>
           <Link href={canDiagnose ? '/questionnaire' : '/qualification'}><span>02</span><strong>Diagnosticar</strong><p>Medí 22 prácticas con evidencia.</p></Link>
-          <Link href={latest ? `/results/${latest.id}` : canDiagnose ? '/questionnaire' : '/qualification'}><span>03</span><strong>Entender</strong><p>Leé el resultado base sin depender de IA.</p></Link>
-          <Link href="/action-plan"><span>04</span><strong>Priorizar</strong><p>Convertí brechas en acciones con responsable.</p></Link>
-          <Link href="/follow-up"><span>05</span><strong>Implementar</strong><p>Registrá evidencia y prepará la próxima medición.</p></Link>
+          <Link href={latest ? `/results/${latest.id}` : canDiagnose ? '/questionnaire' : '/qualification'}><span>03</span><strong>Entender</strong><p>Leé el resultado interno sin depender de IA.</p></Link>
+          <Link href="/nps"><span>04</span><strong>Escuchar</strong><p>Sumá la percepción de clientes y detectá brechas externas.</p></Link>
+          <Link href="/action-plan"><span>05</span><strong>Priorizar</strong><p>Convertí diagnóstico y NPS en acciones con responsable.</p></Link>
+          <Link href="/follow-up"><span>06</span><strong>Implementar</strong><p>Registrá evidencia y prepará la próxima medición.</p></Link>
         </div>
       </section>
     </AppShell>
