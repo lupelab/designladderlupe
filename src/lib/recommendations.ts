@@ -74,7 +74,11 @@ export function getTopPriorities(scores: DimensionScore, ladderStep: LadderStep)
   return getDimensionRecommendations(scores, ladderStep)
     .sort((a, b) => {
       const priorityRank = { Alta: 0, Media: 1, Baja: 2 };
-      return priorityRank[a.priority] - priorityRank[b.priority] || a.label.localeCompare(b.label);
+      return (
+        priorityRank[a.priority] - priorityRank[b.priority] ||
+        Number(scores[a.dimension] || 0) - Number(scores[b.dimension] || 0) ||
+        a.label.localeCompare(b.label)
+      );
     })
     .slice(0, 3);
 }

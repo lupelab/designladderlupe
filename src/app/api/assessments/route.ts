@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createAssessment, listAssessments } from '@/lib/apps-script';
+import { createActionItem, createAssessment, listAssessments } from '@/lib/apps-script';
 import { getCurrentAgency } from '@/lib/auth';
 import { QUESTIONS } from '@/lib/questionnaire';
 import { buildScoringResult } from '@/lib/scoring';
+import { buildSuggestedActionsFromAssessment } from '@/lib/action-plan';
 
 const assessmentSchema = z.object({
   respondentName: z.string().min(2),
@@ -86,6 +87,16 @@ export async function POST(request: NextRequest) {
     };
 
     const result = await createAssessment(item as any);
+
+    // El diagnóstico es la fuente del plan: al guardarlo se crean automáticamente
+    // las primeras acciones priorizadas. Si alguna acción no puede crearse, el
+    // diagnóstico igualmente queda disponible y el tablero vuelve a intentar
+    // sincronizarlo cuando se abre.
+    if (result.ok && result.item) {
+      const suggestedActions = buildSuggestedActionsFromAssessment(result.item);
+      await Promise.allSettled(suggestedActions.map((action) => createActionItem(action)));
+    }
+
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(

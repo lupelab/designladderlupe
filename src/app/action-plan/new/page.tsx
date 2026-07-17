@@ -5,18 +5,6 @@ import { getCurrentAgency } from '@/lib/auth';
 
 export default async function NewActionPage() {
   const agency = await getCurrentAgency();
-
-  if (!agency) {
-    redirect('/login');
-  }
-
-  return (
-    <AppShell
-      title="Crear acción"
-      agency={agency}
-      subtitle="Definí una acción clara para avanzar en cultura de innovación y diseño centrado en las personas."
-    >
-      <ActionItemForm agency={agency} />
-    </AppShell>
-  );
+  if (!agency) redirect('/login');
+  return <AppShell title="Agregar acción" agency={agency} subtitle="Sumá una tarjeta manual cuando el diagnóstico no cubra una necesidad específica."><ActionItemForm agency={agency} /></AppShell>;
 }

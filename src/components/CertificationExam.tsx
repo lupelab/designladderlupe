@@ -146,6 +146,7 @@ export function CertificationExam({ initialProgress }: { initialProgress: Qualif
           <h2>Examen de habilitación del aplicador</h2>
           <p>Son 30 preguntas de opción múltiple, cinco por cada dimensión. Evalúan los 22 principios, el uso de evidencia y la capacidad de distinguir una práctica instalada de una intención.</p>
           <div className="certification-rules"><span><strong>{questions.length}</strong> preguntas</span><span><strong>{minCorrect}</strong> correctas para aprobar</span><span><strong>Una sola vez</strong> después de aprobar</span><span><strong>15–20 min</strong> estimados</span></div>
+          <div className="exam-playbook-card"><span>PDF</span><div><strong>Playbook Design-Led Culture</strong><p>Consultá los 22 principios y sus casos antes de comenzar. El documento también queda disponible durante todo el examen.</p></div><a className="button button-secondary button-small" href="/design-led-culture-playbook.pdf" target="_blank" rel="noreferrer">Abrir playbook</a></div>
           {initialProgress.certificationAttempts ? <p className="certification-attempt-note">Intentos anteriores: {initialProgress.certificationAttempts}. Último resultado: {initialProgress.certificationScore ?? '—'}%.</p> : null}
           <button className="button button-primary button-xl" onClick={() => { setCurrentPage(0); setStarted(true); }}>Comenzar examen →</button>
         </div>
@@ -155,10 +156,11 @@ export function CertificationExam({ initialProgress }: { initialProgress: Qualif
 
   return (
     <section className="certification-exam-shell">
-      <div className="panel certification-exam-topbar">
+      <div className="panel certification-exam-topbar exam-topbar-with-resource">
         <div><span>Progreso total</span><strong>{answered}/{questions.length} respondidas</strong></div>
         <div className="certification-exam-progress"><span style={{ width: `${completion}%` }} /></div>
         <b>{completion}%</b>
+        <a href="/design-led-culture-playbook.pdf" target="_blank" rel="noreferrer" className="exam-pdf-link">PDF Design-Led ↗</a>
       </div>
 
       <div className="certification-page-nav" aria-label="Bloques del examen">

@@ -72,7 +72,7 @@ export function buildSuggestedActionsFromAssessment(item: AssessmentRecord): Act
       dimension: priority.dimension,
       title: priority.headline,
       description: `Acción derivada del diagnóstico para fortalecer ${priority.label}. Debe ejecutarse con foco en cultura de innovación y diseño centrado en las personas.`,
-      phase: index === 0 ? 'Priorizar' : 'Implementar',
+      phase: 'Priorizar',
       ownerName: '',
       ownerEmail: '',
       status: 'Pendiente',

@@ -13,7 +13,17 @@ export default async function CertificationPage() {
   if (user.role !== 'admin' && !progress.guideCompletedAt) redirect('/training');
 
   return (
-    <AppShell title="Certificación del aplicador" subtitle="Validá tu comprensión de los principios y el criterio de evidencia antes de completar diagnósticos oficiales." agency={user.agency} actions={<Link href="/training" className="button button-secondary">Repasar guía</Link>}>
+    <AppShell
+      title="Certificación del aplicador"
+      subtitle="Validá tu comprensión de los principios y el criterio de evidencia antes de completar diagnósticos oficiales."
+      agency={user.agency}
+      actions={
+        <div className="inline-actions">
+          <a href="/design-led-culture-playbook.pdf" target="_blank" rel="noreferrer" className="button button-primary">Abrir PDF Design-Led</a>
+          <Link href="/training" className="button button-secondary">Repasar guía</Link>
+        </div>
+      }
+    >
       <CertificationExam initialProgress={progress} />
     </AppShell>
   );
