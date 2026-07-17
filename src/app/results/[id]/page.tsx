@@ -66,16 +66,6 @@ export default async function ResultsPage({
           >
             Volver al historial
           </Link>
-
-          <form action="/api/admin/logout" method="POST">
-            <button
-              type="submit"
-              className="button button-secondary"
-              title="Cerrar la sesión actual de la agencia"
-            >
-              Salir
-            </button>
-          </form>
         </div>
       }
     >

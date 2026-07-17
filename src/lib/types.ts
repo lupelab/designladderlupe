@@ -9,6 +9,47 @@ export type AgencyName =
   | 'BPR'
   | 'TEXO';
 
+
+export type AccessRole = 'member' | 'admin';
+export type AccessStatus = 'pending' | 'approved' | 'rejected' | 'suspended';
+export type CertificationStatus = 'not_started' | 'in_progress' | 'passed' | 'failed';
+
+export type QualificationProgress = {
+  readinessChecklist: Record<string, boolean>;
+  readinessCompletedAt?: string;
+  guideCompletedAt?: string;
+  certificationStatus: CertificationStatus;
+  certificationScore?: number;
+  certificationAttempts: number;
+  certifiedAt?: string;
+  certificationVersion?: string;
+};
+
+export type AccessSession = {
+  id: string;
+  fullName: string;
+  email: string;
+  agency: AgencyName;
+  role: AccessRole;
+  legacy?: boolean;
+  mustChangePassword?: boolean;
+  adminPreview?: boolean;
+};
+
+export type AccessUser = AccessSession & {
+  jobTitle?: string;
+  status: AccessStatus;
+  requestedAt: string;
+  approvedAt?: string;
+  lastLoginAt?: string;
+  readinessCompletedAt?: string;
+  guideCompletedAt?: string;
+  certificationStatus?: CertificationStatus;
+  certificationScore?: number;
+  certificationAttempts?: number;
+  certifiedAt?: string;
+};
+
 export type DimensionKey =
   | 'visionary'
   | 'inspirational'

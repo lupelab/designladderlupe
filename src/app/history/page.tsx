@@ -12,10 +12,16 @@ export default async function HistoryPage() {
     redirect('/login');
   }
 
-  const data = await listAssessments(agency);
-  const items = [...data.items].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  let items: any[] = [];
+  try {
+    const data = await listAssessments(agency);
+    items = [...data.items].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  } catch {
+    // En modo de prueba el módulo debe abrir aunque la fuente de datos aún no esté configurada.
+    items = [];
+  }
 
   return (
     <AppShell
@@ -27,11 +33,6 @@ export default async function HistoryPage() {
           <Link href="/questionnaire" className="button button-primary" title="Crear una nueva evaluación para tu agencia">
             Nueva evaluación
           </Link>
-          <form action="/api/admin/logout" method="POST">
-            <button type="submit" className="button button-secondary" title="Cerrar la sesión actual de la agencia">
-              Salir
-            </button>
-          </form>
         </div>
       }
     >

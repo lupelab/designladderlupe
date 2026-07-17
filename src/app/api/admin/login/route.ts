@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       name: AGENCY_COOKIE_NAME,
       value: makeAgencyCookieValue(agency as AgencyName),
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 12,
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Invalid admin token' }, { status: 401 });
   }
 
-  const response = NextResponse.json({ ok: true });
+  const response = NextResponse.redirect(new URL('/admin/access', request.url));
 
   response.cookies.set({
     name: ADMIN_COOKIE_NAME,

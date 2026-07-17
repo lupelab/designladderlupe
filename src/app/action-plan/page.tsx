@@ -43,9 +43,6 @@ export default async function ActionPlanPage() {
           <Link href="/action-plan/new" className="button button-primary">
             Nueva acción
           </Link>
-          <form action="/api/admin/logout" method="POST">
-            <button type="submit" className="button button-secondary">Salir</button>
-          </form>
         </div>
       }
     >

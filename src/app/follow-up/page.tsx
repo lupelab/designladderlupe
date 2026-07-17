@@ -39,7 +39,6 @@ export default async function FollowUpPage() {
       actions={
         <div className="inline-actions">
           <Link href="/action-plan" className="button button-primary">Ver plan de acción</Link>
-          <form action="/api/admin/logout" method="POST"><button className="button button-secondary" type="submit">Salir</button></form>
         </div>
       }
     >

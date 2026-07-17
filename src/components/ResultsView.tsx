@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { RadarChart } from '@/components/RadarChart';
 import {
@@ -25,6 +25,7 @@ import {
   HoldingBenchmark,
 } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
+import { ProcessingOverlay } from '@/components/ProcessingOverlay';
 
 type InsightType = 'strength' | 'gap' | 'opportunity' | 'risk';
 
@@ -132,8 +133,7 @@ function defaultAiDiagnosis(
   return {
     executiveSummary: {
       title: 'Lectura ejecutiva inicial',
-      summary:
-        'El diagnóstico ordena la madurez actual de cultura de innovación y diseño centrado en las personas para convertir percepciones en decisiones accionables.',
+      summary: STEP_COPY[item.ladderStep ?? getLadderStep(item.dimensionScores, item.overallScore)].summary,
       status: item.maturityLevel,
       nextStep: priorities[0]?.headline || 'Priorizar una acción concreta para avanzar al siguiente peldaño.',
     },
@@ -191,18 +191,9 @@ export function ResultsView({
     [item, holdingBenchmark, priorities]
   );
 
-  const [aiDiagnosis, setAiDiagnosis] = useState<AiDiagnosis>(fallbackDiagnosis);
+  const [aiDiagnosis, setAiDiagnosis] = useState<AiDiagnosis | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState('');
-
-  const aiPayloadKey = useMemo(() => {
-    return JSON.stringify({
-      assessmentId: item.id,
-      assessmentScore: item.overallScore,
-      benchmarkScore: holdingBenchmark.overallScore,
-      benchmarkDimensions: holdingBenchmark.dimensionScores,
-    });
-  }, [item.id, item.overallScore, holdingBenchmark.overallScore, holdingBenchmark.dimensionScores]);
 
   async function generateAiDiagnosis() {
     try {
@@ -225,24 +216,30 @@ export function ResultsView({
       setAiDiagnosis(data.diagnosis || fallbackDiagnosis);
     } catch (error) {
       setAiError(error instanceof Error ? error.message : String(error));
-      setAiDiagnosis(fallbackDiagnosis);
+      setAiDiagnosis(null);
     } finally {
       setAiLoading(false);
     }
   }
 
-  useEffect(() => {
-    generateAiDiagnosis();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aiPayloadKey]);
-
   const benchmarkRows =
-    aiDiagnosis.benchmarkComparison?.length
+    aiDiagnosis?.benchmarkComparison?.length
       ? aiDiagnosis.benchmarkComparison
       : fallbackDiagnosis.benchmarkComparison || [];
 
   return (
     <>
+      <ProcessingOverlay
+        active={aiLoading}
+        title="La IA está profundizando la lectura"
+        stages={[
+          { at: 0, label: 'Leyendo el resultado base' },
+          { at: 24, label: 'Buscando patrones entre dimensiones' },
+          { at: 50, label: 'Contrastando prioridades y benchmark' },
+          { at: 73, label: 'Redactando hipótesis de trabajo' },
+          { at: 90, label: 'Preparando recomendaciones ampliadas' },
+        ]}
+      />
       <section className="hero-grid">
         <article className="hero-card hero-card-main texo-hero-card">
           <p className="eyebrow">Cultura de innovación y diseño centrado en las personas</p>
@@ -317,134 +314,61 @@ export function ResultsView({
         </div>
       </section>
 
-      <section className="panel ai-visual-panel">
-        <div className="section-head">
+      {!aiDiagnosis ? (
+        <section className="panel ai-on-demand-panel">
+          <div className="ai-on-demand-icon">✦</div>
           <div>
-            <p className="eyebrow">Diagnóstico ejecutivo con IA</p>
-            <h3>{aiDiagnosis.executiveSummary?.title || 'Lectura modular'}</h3>
-            <p className="muted">
-              Lectura esquemática, menor a 400 palabras, orientada a próximos pasos y estrategia corporativa.
-            </p>
+            <p className="eyebrow">Profundización opcional</p>
+            <h3>El resultado ya está completo. La IA puede ayudarte a interpretarlo con más detalle.</h3>
+            <p className="muted">La lectura, los puntajes, las brechas y las recomendaciones que ves abajo son determinísticos y no dependen de IA. Usá esta opción solo para explorar conexiones, riesgos o hipótesis adicionales.</p>
+            {aiError ? <div className="result-alert"><strong>No se pudo completar la profundización.</strong><p>{aiError}</p></div> : null}
           </div>
-          <button
-            type="button"
-            className="button button-secondary button-small"
-            onClick={generateAiDiagnosis}
-            disabled={aiLoading}
-          >
-            {aiLoading ? 'Generando...' : 'Regenerar diagnóstico IA'}
-          </button>
-        </div>
-
-        {aiError ? (
-          <div className="result-alert">
-            <strong>No se pudo generar el diagnóstico IA.</strong>
-            <p>{aiError}</p>
+          <button type="button" className="button button-primary" onClick={generateAiDiagnosis} disabled={aiLoading}>Profundizar con IA</button>
+        </section>
+      ) : (
+        <section className="panel ai-visual-panel">
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Profundización generada con IA</p>
+              <h3>{aiDiagnosis.executiveSummary?.title || 'Lectura ampliada'}</h3>
+              <p className="muted">Esta capa agrega interpretación al resultado base. No modifica el puntaje ni las recomendaciones predefinidas.</p>
+            </div>
+            <div className="inline-actions">
+              <button type="button" className="button button-secondary button-small" onClick={generateAiDiagnosis} disabled={aiLoading}>Regenerar</button>
+              <button type="button" className="button button-ghost button-small" onClick={() => setAiDiagnosis(null)}>Cerrar IA</button>
+            </div>
           </div>
-        ) : null}
 
-        <div className="ai-summary-grid">
-          <article className="ai-summary-card ai-summary-main">
-            <span>Estado ejecutivo</span>
-            <strong>{aiDiagnosis.executiveSummary?.status || item.maturityLevel}</strong>
-            <p>{aiDiagnosis.executiveSummary?.summary}</p>
-          </article>
-          <article className="ai-summary-card">
-            <span>Siguiente paso recomendado</span>
-            <strong>Acción inmediata</strong>
-            <p>{aiDiagnosis.executiveSummary?.nextStep}</p>
-          </article>
-          <article className="ai-summary-card">
-            <span>Foco</span>
-            <strong>Implementar</strong>
-            <p>{aiDiagnosis.finalRecommendation}</p>
-          </article>
-        </div>
-
-        <div className="ai-insight-grid">
-          {(aiDiagnosis.keyInsights || []).slice(0, 4).map((insight, index) => (
-            <article className={`ai-insight-card ${getInsightClass(insight.type)}`} key={`${insight.title}-${index}`}>
-              <span>{getInsightLabel(insight.type)}</span>
-              <h4>{insight.title}</h4>
-              <p>{insight.description}</p>
-            </article>
-          ))}
-        </div>
-
-        <details className="result-details" open>
-          <summary>Ver comparación por bloque</summary>
-          <div className="benchmark-bars">
-            {benchmarkRows.map((row, index) => {
-              const agencyScore = safeScore(row.agencyScore);
-              const texoScore = safeScore(row.texoScore);
-              const agencyWidth = Math.min(100, Math.max(0, (agencyScore / 5) * 100));
-              const texoWidth = Math.min(100, Math.max(0, (texoScore / 5) * 100));
-              return (
-                <div className="benchmark-row" key={`${row.dimension}-${index}`}>
-                  <div className="benchmark-row-head">
-                    <strong>{row.dimension}</strong>
-                    <span>{row.gap && row.gap > 0 ? '+' : ''}{safeScore(row.gap).toFixed(2)} vs benchmark</span>
-                  </div>
-                  <div className="bar-pair">
-                    <span style={{ width: `${agencyWidth}%` }}>Agencia {agencyScore.toFixed(2)}</span>
-                  </div>
-                  <div className="bar-pair bar-pair-soft">
-                    <span style={{ width: `${texoWidth}%` }}>Benchmark {texoScore.toFixed(2)}</span>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="ai-summary-grid">
+            <article className="ai-summary-card ai-summary-main"><span>Lectura ejecutiva</span><strong>{aiDiagnosis.executiveSummary?.status || item.maturityLevel}</strong><p>{aiDiagnosis.executiveSummary?.summary}</p></article>
+            <article className="ai-summary-card"><span>Siguiente paso sugerido</span><strong>Acción inmediata</strong><p>{aiDiagnosis.executiveSummary?.nextStep}</p></article>
+            <article className="ai-summary-card"><span>Recomendación final</span><strong>Foco</strong><p>{aiDiagnosis.finalRecommendation}</p></article>
           </div>
-        </details>
 
-        <details className="result-details" open>
-          <summary>Prioridades convertidas en checklist</summary>
-          <div className="ai-priority-grid">
-            {(aiDiagnosis.priorities || []).slice(0, 3).map((priority, index) => (
-              <article className="ai-priority-card" key={`${priority.title}-${index}`}>
-                <div className="recommendation-top">
-                  <h4>{priority.title}</h4>
-                  <span className={`priority-badge priority-${(priority.priority || 'Media').toLowerCase()}`}>
-                    {priority.priority || 'Media'}
-                  </span>
-                </div>
-                <div className="result-badges-row">
-                  <span className="dimension-band">Impacto {priority.impact || 'Medio'}</span>
-                  <span className="dimension-band dimension-band-soft">Esfuerzo {priority.effort || 'Medio'}</span>
-                </div>
-                <ul className="checklist-list">
-                  {(priority.checklist || []).map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <Link
-                  className="button button-secondary button-small action-create-button"
-                  href={actionPlanHref({
-                    assessmentId: item.id,
-                    title: priority.title || 'Acción sugerida por IA',
-                    description: (priority.checklist || []).join(' · '),
-                    priority: priority.priority || 'Alta',
-                    impact: priority.impact || 'Alto',
-                    effort: priority.effort || 'Medio',
-                    source: 'IA',
-                  })}
-                >
-                  Convertir en acción
-                </Link>
-              </article>
+          <div className="ai-insight-grid">
+            {(aiDiagnosis.keyInsights || []).slice(0, 4).map((insight, index) => (
+              <article className={`ai-insight-card ${getInsightClass(insight.type)}`} key={`${insight.title}-${index}`}><span>{getInsightLabel(insight.type)}</span><h4>{insight.title}</h4><p>{insight.description}</p></article>
             ))}
           </div>
-        </details>
 
-        <details className="result-details">
-          <summary>Roadmap 30 · 60 · 90 días</summary>
-          <div className="roadmap-grid">
-            <RoadmapColumn title="30 días" items={aiDiagnosis.roadmap90Days?.days30 || []} />
-            <RoadmapColumn title="60 días" items={aiDiagnosis.roadmap90Days?.days60 || []} />
-            <RoadmapColumn title="90 días" items={aiDiagnosis.roadmap90Days?.days90 || []} />
-          </div>
-        </details>
-      </section>
+          <details className="result-details" open>
+            <summary>Comparación interpretada por bloque</summary>
+            <div className="benchmark-bars">
+              {benchmarkRows.map((row, index) => {
+                const agencyScore = safeScore(row.agencyScore);
+                const texoScore = safeScore(row.texoScore);
+                return (
+                  <div className="benchmark-row" key={`${row.dimension}-${index}`}>
+                    <div className="benchmark-row-head"><strong>{row.dimension}</strong><span>{row.gap && row.gap > 0 ? '+' : ''}{safeScore(row.gap).toFixed(2)} vs benchmark</span></div>
+                    <div className="bar-pair"><span style={{ width: `${Math.min(100, (agencyScore / 5) * 100)}%` }}>Agencia {agencyScore.toFixed(2)}</span></div>
+                    <div className="bar-pair bar-pair-soft"><span style={{ width: `${Math.min(100, (texoScore / 5) * 100)}%` }}>Benchmark {texoScore.toFixed(2)}</span></div>
+                  </div>
+                );
+              })}
+            </div>
+          </details>
+        </section>
+      )}
 
       <section className="content-grid">
         <RadarChart
