@@ -65,3 +65,7 @@ Revisar `UX_UI_V3_QUALIFICATION.md` para la guía completa.
 - Conversión de resultados NPS en tarjetas dentro de `/action-plan`.
 - Soporte para PHD mediante `supabase/migrations/20260718_add_phd_agency.sql`.
 - Configuración detallada en `UX_UI_V7_NPS_PLANES_ACCION.md`.
+
+## Acceso completo (V8)
+
+Todas las cuentas aprobadas acceden directamente al dashboard y pueden usar diagnóstico, NPS, resultados y planes de acción sin completar checklist, simulacro ni certificación. Los recursos de preparación se mantienen como módulos opcionales y la certificación sigue registrándose cuando el usuario decide rendirla.

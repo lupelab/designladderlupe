@@ -42,7 +42,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json({
       ok: false,
-      error: error instanceof Error ? error.message : 'No se pudo cargar el recorrido de habilitación.',
+      error: error instanceof Error ? error.message : 'No se pudo cargar el recorrido de preparación.',
     }, { status: 500 });
   }
 }
@@ -68,9 +68,6 @@ export async function PATCH(request: NextRequest) {
     }
 
     if (action === 'complete-guide') {
-      if (!current.readinessCompletedAt) {
-        return NextResponse.json({ ok: false, error: 'Primero completá el checklist de preparación.' }, { status: 409 });
-      }
       const score = Number(body.score || 0);
       if (score < 80) {
         return NextResponse.json({ ok: false, error: 'Necesitás al menos 80% en el simulacro para continuar.' }, { status: 400 });
@@ -101,9 +98,6 @@ export async function POST(request: NextRequest) {
     const current = await getQualificationProgress(user);
     if (current.certificationStatus === 'passed' && current.certifiedAt) {
       return NextResponse.json({ ok: false, error: 'La certificación ya fue aprobada y se realiza una sola vez. Un administrador puede reiniciarla si fuera necesario.' }, { status: 409 });
-    }
-    if (!current.readinessCompletedAt || !current.guideCompletedAt) {
-      return NextResponse.json({ ok: false, error: 'Completá la preparación y el simulacro antes del examen.' }, { status: 409 });
     }
 
     const answers = body.answers && typeof body.answers === 'object' ? body.answers : {};

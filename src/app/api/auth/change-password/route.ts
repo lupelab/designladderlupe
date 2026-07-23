@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, error: 'La nueva contraseña debe tener al menos 8 caracteres.' }, { status: 400 });
     }
     const user = await changeUserPassword(current.id, String(password));
-    const response = NextResponse.json({ ok: true, redirectTo: user.role === 'admin' ? '/admin/access' : user.certificationStatus === 'passed' ? '/dashboard' : '/qualification' });
+    const response = NextResponse.json({ ok: true, redirectTo: user.role === 'admin' ? '/admin/access' : '/dashboard' });
     response.cookies.set({
       name: ACCESS_COOKIE_NAME,
       value: makeAccessCookieValue({ id: user.id, fullName: user.fullName, email: user.email, agency: user.agency, role: user.role, mustChangePassword: false }),

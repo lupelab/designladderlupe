@@ -95,9 +95,9 @@ export function ReadinessChecklist({ initialProgress }: { initialProgress: Quali
       <section className="panel readiness-main">
         <div className="readiness-head">
           <div>
-            <span className="hero-badge">Módulo 1 · Preparación</span>
+            <span className="hero-badge">Recurso opcional · Preparación</span>
             <h2>Checklist previo a la aplicación</h2>
-            <p>No mide cuánto sabés. Confirma que contás con el contexto y la evidencia mínima para responder de forma responsable.</p>
+            <p>No mide cuánto sabés. Funciona como una guía para reunir contexto y evidencia antes de responder; podés iniciar el diagnóstico aunque no lo completes.</p>
           </div>
           <div className="readiness-score" aria-label={`${percentage}% listo`}>
             <span>{percentage}%</span>
@@ -139,11 +139,11 @@ export function ReadinessChecklist({ initialProgress }: { initialProgress: Quali
       <aside className="panel readiness-side">
         <p className="eyebrow">Estado de preparación</p>
         {allReady ? (
-          <div className="readiness-ready-message"><span>✓</span><strong>Estás listo para entrenar el criterio</strong><p>El siguiente paso es un simulacro basado en un brief de agencia.</p></div>
+          <div className="readiness-ready-message"><span>✓</span><strong>Checklist completo</strong><p>Podés continuar con el simulacro opcional o iniciar directamente el diagnóstico.</p></div>
         ) : (
           <>
             <h3>{blockers.length} {blockers.length === 1 ? 'condición pendiente' : 'condiciones pendientes'}</h3>
-            <p>Podés guardar el avance. El diagnóstico seguirá bloqueado hasta completar la guía y aprobar la certificación.</p>
+            <p>Podés guardar el avance y volver cuando quieras. Ninguna condición pendiente bloquea el diagnóstico ni los demás módulos.</p>
             <div className="readiness-blockers">
               {blockers.slice(0, 4).map((item) => <span key={item.id}>• {item.title}</span>)}
               {blockers.length > 4 ? <span>+ {blockers.length - 4} más</span> : null}

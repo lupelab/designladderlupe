@@ -106,7 +106,7 @@ export function CertificationExam({ initialProgress }: { initialProgress: Qualif
         <p className="eyebrow">Certificación completada</p>
         <h2>Este examen ya fue aprobado</h2>
         <div className="certification-score-ring"><strong>{initialProgress.certificationScore ?? '—'}%</strong><span>resultado registrado</span></div>
-        <p>La habilitación inicial se realiza una sola vez y quedó asociada a tu cuenta{initialProgress.certifiedAt ? ` desde el ${new Date(initialProgress.certifiedAt).toLocaleDateString('es-PY')}` : ''}. No necesitás repetirla para realizar nuevos diagnósticos.</p>
+        <p>La certificación opcional se realiza una sola vez y quedó asociada a tu cuenta{initialProgress.certifiedAt ? ` desde el ${new Date(initialProgress.certifiedAt).toLocaleDateString('es-PY')}` : ''}. No necesitás repetirla y el acceso a la plataforma no depende de este resultado.</p>
         <div className="certification-lock-note"><strong>Certificación protegida</strong><span>Solo un administrador puede reiniciar este proceso cuando exista una razón justificada.</span></div>
         <div className="inline-actions">
           <button className="button button-primary" onClick={() => router.push('/questionnaire')}>Iniciar diagnóstico →</button>
@@ -125,9 +125,9 @@ export function CertificationExam({ initialProgress }: { initialProgress: Qualif
       <section className={grade.passed ? 'panel certification-result passed' : 'panel certification-result failed'}>
         <div className="certification-result-badge"><span>{grade.passed ? '✓' : '!'}</span></div>
         <p className="eyebrow">Resultado de certificación</p>
-        <h2>{grade.passed ? 'Estás habilitado para aplicar el diagnóstico' : 'Todavía falta consolidar el criterio'}</h2>
+        <h2>{grade.passed ? 'Certificación aprobada' : 'Todavía falta consolidar el criterio'}</h2>
         <div className="certification-score-ring"><strong>{grade.score}%</strong><span>{grade.correct}/{grade.total} respuestas correctas</span></div>
-        <p>{grade.passed ? 'Tu certificación quedó asociada a tu cuenta y no volverás a rendirla. Desde ahora podés completar diagnósticos oficiales.' : `Necesitás ${passScore}%: al menos ${minCorrect} respuestas correctas de ${grade.total}. Repasá las dimensiones señaladas antes de volver a intentarlo.`}</p>
+        <p>{grade.passed ? 'Tu certificación quedó asociada a tu cuenta y no volverás a rendirla. El diagnóstico y los demás módulos ya estaban disponibles y continúan abiertos.' : `Necesitás ${passScore}%: al menos ${minCorrect} respuestas correctas de ${grade.total}. Podés repasar y volver a intentarlo cuando quieras; este resultado no limita el acceso a la herramienta.`}</p>
         {!grade.passed && grade.gaps.length ? <div className="certification-gaps"><strong>Dimensiones para repasar</strong><div>{grade.gaps.map((gap) => <span key={gap}>{DIMENSION_LABELS[gap]}</span>)}</div></div> : null}
         <div className="inline-actions">
           {grade.passed ? <button className="button button-primary" onClick={() => { router.push('/questionnaire?certified=1'); router.refresh(); }}>Iniciar diagnóstico →</button> : <button className="button button-primary" onClick={retry}>Volver a intentar</button>}
@@ -142,9 +142,9 @@ export function CertificationExam({ initialProgress }: { initialProgress: Qualif
       <section className="panel certification-start">
         <div className="certification-seal"><span>30</span><small>preguntas</small></div>
         <div>
-          <span className="hero-badge">Módulo 3 · Certificación inicial</span>
-          <h2>Examen de habilitación del aplicador</h2>
-          <p>Son 30 preguntas de opción múltiple, cinco por cada dimensión. Evalúan los 22 principios, el uso de evidencia y la capacidad de distinguir una práctica instalada de una intención.</p>
+          <span className="hero-badge">Recurso opcional · Certificación</span>
+          <h2>Examen opcional del aplicador</h2>
+          <p>Son 30 preguntas de opción múltiple, cinco por cada dimensión. Evalúan los 22 principios, el uso de evidencia y la capacidad de distinguir una práctica instalada de una intención. Podés usar toda la plataforma aunque no rindas o no apruebes este examen.</p>
           <div className="certification-rules"><span><strong>{questions.length}</strong> preguntas</span><span><strong>{minCorrect}</strong> correctas para aprobar</span><span><strong>Una sola vez</strong> después de aprobar</span><span><strong>15–20 min</strong> estimados</span></div>
           <div className="exam-playbook-card"><span>PDF</span><div><strong>Playbook Design-Led Culture</strong><p>Consultá los 22 principios y sus casos antes de comenzar. El documento también queda disponible durante todo el examen.</p></div><a className="button button-secondary button-small" href="/design-led-culture-playbook.pdf" target="_blank" rel="noreferrer">Abrir playbook</a></div>
           {initialProgress.certificationAttempts ? <p className="certification-attempt-note">Intentos anteriores: {initialProgress.certificationAttempts}. Último resultado: {initialProgress.certificationScore ?? '—'}%.</p> : null}

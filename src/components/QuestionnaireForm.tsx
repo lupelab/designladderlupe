@@ -17,7 +17,7 @@ function questionsFor(dimension: DimensionKey) {
   return QUESTIONS.filter((question) => question.dimension === dimension);
 }
 
-export function QuestionnaireForm({ defaultName = '', defaultEmail = '', agency, certificationScore, adminMode = false }: { defaultName?: string; defaultEmail?: string; agency: AgencyName; certificationScore?: number; adminMode?: boolean }) {
+export function QuestionnaireForm({ defaultName = '', defaultEmail = '', agency, certificationScore, certified = false, adminMode = false }: { defaultName?: string; defaultEmail?: string; agency: AgencyName; certificationScore?: number; certified?: boolean; adminMode?: boolean }) {
   const router = useRouter();
   const [respondentName, setRespondentName] = useState(defaultName);
   const [role, setRole] = useState('');
@@ -150,7 +150,7 @@ export function QuestionnaireForm({ defaultName = '', defaultEmail = '', agency,
           <strong>{completion}% del diagnóstico respondido</strong>
         </div>
         <div className="diagnostic-progress-track"><span style={{ width: `${completion}%` }} /></div>
-        <div className="diagnostic-topbar-statuses"><span className={adminMode ? 'certified-applicator-chip admin' : 'certified-applicator-chip'}>{adminMode ? '⚙ Modo administrador · prueba libre' : `✓ Aplicador certificado${certificationScore ? ` · ${certificationScore}%` : ''}`}</span><div className="autosave-state"><i /> {savedAt ? `Guardado automáticamente · ${savedAt}` : 'Guardado automático activo'}</div></div>
+        <div className="diagnostic-topbar-statuses"><span className={adminMode ? 'certified-applicator-chip admin' : certified ? 'certified-applicator-chip' : 'certified-applicator-chip open-access'}>{adminMode ? '⚙ Modo administrador · prueba libre' : certified ? `✓ Certificación registrada${certificationScore ? ` · ${certificationScore}%` : ''}` : 'Acceso completo · preparación opcional'}</span><div className="autosave-state"><i /> {savedAt ? `Guardado automáticamente · ${savedAt}` : 'Guardado automático activo'}</div></div>
       </section>
 
       <div className="diagnostic-layout">
@@ -168,7 +168,7 @@ export function QuestionnaireForm({ defaultName = '', defaultEmail = '', agency,
         <main className="diagnostic-main">
           {currentStep === 0 ? (
             <section className="panel diagnostic-intro-panel">
-              <div className="diagnostic-intro-head"><span className="hero-badge">12–18 minutos · Aplicador habilitado</span><h2>Definí el contexto de esta medición</h2><p>La preparación y el criterio ya fueron validados. Registrá quién responde y cualquier situación que pueda influir en la lectura del resultado.</p></div>
+              <div className="diagnostic-intro-head"><span className="hero-badge">12–18 minutos · Acceso completo</span><h2>Definí el contexto de esta medición</h2><p>Podés iniciar esta medición directamente. Registrá quién responde y cualquier situación que pueda influir en la lectura del resultado; la guía y la certificación quedan disponibles como apoyo opcional.</p></div>
               <div className="diagnostic-principles evidence-onboarding">
                 <article><span>01</span><strong>Buscá un caso real</strong><p>Algo que efectivamente ocurrió durante los últimos tres meses.</p></article>
                 <article><span>02</span><strong>Pasalo por 4 señales</strong><p>Existe, se extiende, se sostiene y se usa para decidir.</p></article>

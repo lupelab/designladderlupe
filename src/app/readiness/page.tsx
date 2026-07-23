@@ -11,7 +11,17 @@ export default async function ReadinessPage() {
   const progress = await getQualificationProgress(user);
 
   return (
-    <AppShell title="Preparación del diagnóstico" subtitle="Confirmá que tenés el alcance, la evidencia y la neutralidad necesarias antes de evaluar." agency={user.agency} actions={<Link href="/qualification" className="button button-secondary">Ver recorrido</Link>}>
+    <AppShell
+      title="Checklist opcional de preparación"
+      subtitle="Usalo como guía para reunir contexto y evidencia antes de evaluar. No bloquea el acceso al diagnóstico."
+      agency={user.agency}
+      actions={
+        <div className="inline-actions">
+          <Link href="/questionnaire" className="button button-primary">Ir al diagnóstico</Link>
+          <Link href="/qualification" className="button button-secondary">Ver recursos</Link>
+        </div>
+      }
+    >
       <ReadinessChecklist initialProgress={progress} />
     </AppShell>
   );

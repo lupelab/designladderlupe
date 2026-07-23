@@ -99,7 +99,7 @@ export function TrainingSimulator() {
     <div className="training-stack">
       <section className="panel training-intro">
         <div>
-          <span className="hero-badge">Módulo 2 · Guía práctica</span>
+          <span className="hero-badge">Recurso opcional · Guía práctica</span>
           <h2>Cómo completar el diagnóstico sin inflar ni castigar el resultado</h2>
           <p>El playbook organiza la cultura de diseño en seis categorías y 22 principios. La aplicación debe comparar prácticas relativas, encontrar fortalezas y detectar dónde conviene actuar primero.</p>
         </div>
@@ -154,7 +154,7 @@ export function TrainingSimulator() {
 
         {!reviewed ? <div className="simulation-actions"><p>{completed === SIMULATION.length ? 'Ya podés comparar tu criterio con la guía.' : `Faltan ${SIMULATION.length - completed} respuestas.`}</p><button type="button" className="button button-primary" disabled={completed !== SIMULATION.length} onClick={evaluate}>Corregir simulacro</button></div> : null}
 
-        {reviewed ? <div id="simulation-result" className={passed ? 'simulation-result passed' : 'simulation-result'}><div><span>{score}%</span><div><strong>{passed ? 'Criterio preparado' : 'Revisá los casos marcados'}</strong><p>{passed ? 'Superaste el 80%. El examen de certificación se habilitó.' : 'Necesitás al menos 80%. Ajustá las respuestas usando la evidencia del brief y volvé a corregir.'}</p></div></div>{passed ? <button type="button" className="button button-primary" disabled={saving} onClick={completeGuide}>{saving ? 'Guardando…' : 'Ir al examen de certificación →'}</button> : <button type="button" className="button button-secondary" onClick={() => setReviewed(false)}>Reintentar</button>}</div> : null}
+        {reviewed ? <div id="simulation-result" className={passed ? 'simulation-result passed' : 'simulation-result'}><div><span>{score}%</span><div><strong>{passed ? 'Criterio preparado' : 'Revisá los casos marcados'}</strong><p>{passed ? 'Superaste el 80%. Podés registrar este avance y continuar al examen opcional.' : 'Podés revisar los casos y volver a intentar. También podés continuar al examen o ir directamente al diagnóstico: ningún resultado bloquea el acceso.'}</p></div></div>{passed ? <button type="button" className="button button-primary" disabled={saving} onClick={completeGuide}>{saving ? 'Guardando…' : 'Registrar avance e ir al examen →'}</button> : <div className="inline-actions"><button type="button" className="button button-secondary" onClick={() => setReviewed(false)}>Reintentar</button><button type="button" className="button button-primary" onClick={() => router.push('/certification')}>Ir al examen igualmente →</button></div>}</div> : null}
         {error ? <div className="auth-message auth-message-error">{error}</div> : null}
       </section>
     </div>

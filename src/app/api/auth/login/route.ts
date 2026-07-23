@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json({
       ok: true,
-      redirectTo: found.user.mustChangePassword ? '/change-password' : found.user.role === 'admin' ? '/admin/access' : found.user.certificationStatus === 'passed' ? '/dashboard' : '/qualification',
+      redirectTo: found.user.mustChangePassword ? '/change-password' : found.user.role === 'admin' ? '/admin/access' : '/dashboard',
       user: found.user,
     });
 

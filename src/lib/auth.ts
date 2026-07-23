@@ -42,7 +42,7 @@ function signValue(value: string, secret: string) {
 function safeEqual(left: string, right: string) {
   const a = Buffer.from(left);
   const b = Buffer.from(right);
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
+  return a.length === b.length && crypto.timingSafeEqual(Uint8Array.from(a), Uint8Array.from(b));
 }
 
 export function hashPassword(password: string) {

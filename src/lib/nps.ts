@@ -203,7 +203,9 @@ function mapRow(values: unknown[]): NpsSurveyRow | null {
 }
 
 function base64Url(value: string | Buffer) {
-  return Buffer.from(value).toString('base64url');
+  return Buffer.isBuffer(value)
+    ? value.toString('base64url')
+    : Buffer.from(value, 'utf8').toString('base64url');
 }
 
 async function getGoogleAccessToken() {

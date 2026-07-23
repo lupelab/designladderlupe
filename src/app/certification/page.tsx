@@ -9,21 +9,21 @@ export default async function CertificationPage() {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
   const progress = await getQualificationProgress(user);
-  if (user.role !== 'admin' && !progress.readinessCompletedAt) redirect('/readiness');
-  if (user.role !== 'admin' && !progress.guideCompletedAt) redirect('/training');
 
   return (
     <AppShell
-      title="Certificación del aplicador"
-      subtitle="Validá tu comprensión de los principios y el criterio de evidencia antes de completar diagnósticos oficiales."
+      title="Certificación opcional del aplicador"
+      subtitle="Validá tu comprensión de los principios y del criterio de evidencia. El resultado no limita el acceso al diagnóstico ni a los demás módulos."
       agency={user.agency}
       actions={
         <div className="inline-actions">
-          <a href="/design-led-culture-playbook.pdf" target="_blank" rel="noreferrer" className="button button-primary">Abrir PDF Design-Led</a>
+          <Link href="/questionnaire" className="button button-primary">Ir al diagnóstico</Link>
+          <a href="/design-led-culture-playbook.pdf" target="_blank" rel="noreferrer" className="button button-secondary">Abrir PDF Design-Led</a>
           <Link href="/training" className="button button-secondary">Repasar guía</Link>
         </div>
       }
     >
+      <div className="qualification-notice optional"><strong>Este examen es opcional.</strong><span>Podés usar toda la plataforma, completar diagnósticos y crear planes de acción sin rendirlo.</span></div>
       <CertificationExam initialProgress={progress} />
     </AppShell>
   );
